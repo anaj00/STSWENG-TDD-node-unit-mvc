@@ -1,0 +1,25 @@
+PS C:\Users\janam\OneDrive\DLSU\Year 3 Term 2\STSWENG\HW\01_TDD\node-unit-mvc> npm test
+
+> unit-mvc@1.0.0 test
+> jest --color
+
+
+ RUNS  tests/post.test.js
+C:\Users\janam\OneDrive\DLSU\Year 3 Term 2\STSWENG\HW\01_TDD\node-unit-mvc\node_modules\mongodb\lib\connection_string.js:291
+        throw new error_1.MongoParseError(`${optionWord} ${Array.from(unsupportedOptions).join(', ')} ${isOrAre} not supported`);
+              ^
+
+MongoParseError: option usefindandmodify is not supported
+    at Object.parseOptions (C:\Users\janam\OneDrive\DLSU\Year 3 Term 2\STSWENG\HW\01_TDD\node-unit-mvc\node_modules\mongodb\src\connection_string.ts:358:11)
+    at new MongoClient (C:\Users\janam\OneDrive\DLSU\Year 3 Term 2\STSWENG\HW\01_TDD\node-unit-mvc\node_modules\mongodb\src\mongo_client.ts:327:22)
+    at C:\Users\janam\OneDrive\DLSU\Year 3 Term 2\STSWENG\HW\01_TDD\node-unit-mvc\node_modules\mongoose\lib\connection.js:779:16
+    at new Promise (<anonymous>)
+    at NativeConnection.Object.<anonymous>.Connection.openUri (C:\Users\janam\OneDrive\DLSU\Year 3 Term 2\STSWENG\HW\01_TDD\node-unit-mvc\node_modules\mongoose\lib\connection.js:776:19)
+    at C:\Users\janam\OneDrive\DLSU\Year 3 Term 2\STSWENG\HW\01_TDD\node-unit-mvc\node_modules\mongoose\lib\index.js:330:10
+    at C:\Users\janam\OneDrive\DLSU\Year 3 Term 2\STSWENG\HW\01_TDD\node-unit-mvc\node_modules\mongoose\lib\helpers\promiseOrCallback.js:32:5
+    at new Promise (<anonymous>)
+    at promiseOrCallback (C:\Users\janam\OneDrive\DLSU\Year 3 Term 2\STSWENG\HW\01_TDD\node-unit-mvc\node_modules\mongoose\lib\helpers\promiseOrCallback.js:31:10)
+    at Mongoose.Object.<anonymous>.Mongoose._promiseOrCallback (C:\Users\janam\OneDrive\DLSU\Year 3 Term 2\STSWENG\HW\01_TDD\node-unit-mvc\node_modules\mongoose\lib\index.js:1151:10)
+
+Node.js v20.8.0
+
