@@ -24,7 +24,14 @@ PostController.update = (req, res) => {
 };
 
 PostController.findPost = (req, res) => {
-
+    return PostModel.findPost(req.body, (err, post) => {
+        if (err) {
+            res.status(err.status).end();
+            return res.status(err.status).end();
+        } else {
+            return res.json(post);
+        }
+    })
 };
 
 PostController.getAllPosts = (req, res) => {

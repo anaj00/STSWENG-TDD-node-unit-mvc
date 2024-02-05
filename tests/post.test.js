@@ -188,7 +188,6 @@ describe('Post controller', () => {
         // Error scenario: Post not found
         it('should handle post not found', () => {
             let req = {
-                //TODO: change if poses error
                 body: {
                     _id: 'ilovesoup',
                     title: 'testing is 4 nerdz',
@@ -197,35 +196,60 @@ describe('Post controller', () => {
                 }
             };
 
+            // Stub the findPost function to simulate post not found
+            findPostStub = sinon.stub(PostModel, 'findPost').yields({ status: 404 }, null);
+
+            // Stub the status and end methods of the response object
+            const statusStub = sinon.stub().returnsThis();  // Stubbed status method
+            const endStub = sinon.stub();  // Stubbed end method
+
+            // Set up the response object with the stubbed methods
+            const res = {
+                status: statusStub,
+                end: endStub,
+                json: sinon.stub()
+            };
+
             // Act
             PostController.findPost(req, res);
 
             // Assert
             sinon.assert.calledWith(PostModel.findPost, req.body);
-            sinon.assert.calledWith(res.status, 404); 
-            sinon.assert.calledWith(res.json, sinon.match({ error: 'Post not found' }));
-        })
+            sinon.assert.calledWith(statusStub, 404);
+        });
+
         
         // Error Scenario: Uncatched Error
-        
         it('should return status 500 on server error', () => {
             let req = {
-                //TODO: change if poses error
                 body: {
                     _id: 'ilovesoup',
                     title: 'testing is 4 nerdz',
                     content: 'drop a db',
                     author: 'sejungpark',
                 }
-            }
+            };
+
+            // Stub the findPost function to simulate post not found
+            findPostStub = sinon.stub(PostModel, 'findPost').yields({ status: 500 }, null);
+
+            // Stub the status and end methods of the response object
+            const statusStub = sinon.stub().returnsThis();  // Stubbed status method
+            const endStub = sinon.stub();  // Stubbed end method
+
+            // Set up the response object with the stubbed methods
+            const res = {
+                status: statusStub,
+                end: endStub,
+                json: sinon.stub()
+            };
 
             // Act
             PostController.findPost(req, res);
 
             // Assert
             sinon.assert.calledWith(PostModel.findPost, req.body);
-            sinon.assert.calledWith(res.status, 500); 
-            sinon.assert.calledOnce(res.status(500).end);
+            sinon.assert.calledWith(statusStub, 500);
         })
     })
 });

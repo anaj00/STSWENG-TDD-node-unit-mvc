@@ -37,3 +37,22 @@ exports.updatePost = (obj, next) => {
     });
 };
 
+exports.findPost = (obj, next) => {
+    const postId = obj._id;
+    const errorMessage = 'An error occurred while finding the post'; // Define a default error message
+
+    Post.findById(postId, (err, post) => {
+        if (err) {
+            return next(new Error(errorMessage), { status: 500, error: "Find Failed" });
+        }
+
+        if (!post) {
+            // If the post was not found, return an appropriate response
+            const notFoundMessage = 'Post not found';
+            return next(new Error(errorMessage), { status: 404, error: "Post not found" });
+        }
+
+        // Return the found post if the operation was successful
+        next(null, post);
+    })
+}
