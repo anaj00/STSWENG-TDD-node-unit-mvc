@@ -23,3 +23,17 @@ MongoParseError: option usefindandmodify is not supported
 
 Node.js v20.8.0
 
+===================================================================
+ PASS  tests/post.test.js
+  Post controller
+    create
+      √ should return the created post object (3 ms)
+      √ should return status 500 on server error (1 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       2 passed, 2 total
+Snapshots:   0 total
+Time:        0.971 s, estimated 1 s
+Ran all test suites.
+
+====================================================================
