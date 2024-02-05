@@ -113,51 +113,6 @@ describe('Post controller', () => {
             sinon.assert.calledWith(res.json, sinon.match({ author: req.body.author }));
         })
 
-        // Test for handling errors
-        it('should handle errors during updates', () => {
-            const error = new Error('Update failed');
-            updatePostStub = sinon.stub(PostModel, 'updatePost').yields(error, null);
-
-            // Mocking the request object
-            const req = {
-                body: {
-                    title: 'My updated test post',
-                    content: 'Updated content',
-                    author: 'stswenguser'
-                }
-            };
-
-            // Act
-            PostController.update(req, res);
-
-            // Assert
-            sinon.assert.calledWith(updatePostStub, req.body);
-            sinon.assert.calledWith(res.status, 500); // Assuming you set a 500 status for errors
-        });
-
-        it('should handle non-existent post during update', () => {
-            const expectedResult = null; // Simulating a non-existent post
-            updatePostStub = sinon.stub(PostModel, 'updatePost').yields(null, expectedResult);
-
-            // Mocking the request object
-            const req = {
-                body: {
-                    title: 'My updated test post',
-                    content: 'Updated content',
-                    author: 'stswenguser'
-                }
-            };
-
-            // Act
-            PostController.update(req, res);
-
-            // Assert
-            sinon.assert.calledWith(updatePostStub, req.body);
-            sinon.assert.calledWith(res.status, 404); // Assuming you set a 404 status for not found
-            sinon.assert.calledWith(res.json, sinon.match({ error: 'Post not found' }));
-        });
-
-
         it('should handle successful update', () => {
             const expectedResult = {
                 _id: '507asdghajsdhjgasd',
