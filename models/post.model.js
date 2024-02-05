@@ -17,3 +17,23 @@ exports.createPost = (obj, next) => {
         next(err, post)
     }) 
 }
+
+exports.updatePost = (obj, next) => {
+    const postId = obj._id;
+    
+    Post.findByIdAndUpdate(postId, { $set: obj }, { new: true }, (err, updatedPost) => {
+        if (err) {
+            // Handle the error and return an appropriate response
+            return next(new Error(errorMessage), { status: 500, error: "Update Failed" });        }
+
+        if (!updatedPost) {
+            // If the post was not found, return an appropriate response
+            const notFoundMessage = 'Post not found';
+            return next(new Error(notFoundMessage), { status: 404, error: "Post not found" });
+        }
+
+        // Return the updated post if the update was successful
+        next(null, updatedPost);
+    });
+};
+

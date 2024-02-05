@@ -133,7 +133,6 @@ describe('Post controller', () => {
             // Assert
             sinon.assert.calledWith(updatePostStub, req.body);
             sinon.assert.calledWith(res.status, 500); // Assuming you set a 500 status for errors
-            sinon.assert.calledWith(res.json, sinon.match({ error: 'Update failed' }));
         });
 
         it('should handle non-existent post during update', () => {

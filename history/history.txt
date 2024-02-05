@@ -37,3 +37,147 @@ Time:        0.971 s, estimated 1 s
 Ran all test suites.
 
 ====================================================================
+
+PS C:\School Work\STSWENG\pAIR\STSWENG-TDD-node-unit-mvc> npm run test
+
+> unit-mvc@1.0.0 test
+> jest --color
+
+(node:15892) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ FAIL  tests/post.test.js
+  Post controller
+    create                                                                                                                                                   
+      √ should return the created post object (8 ms)                                                                                                         
+      √ should return status 500 on server error (2 ms)                                                                                                      
+    update                                                                                                                                                   
+      × should retrieve the post (2 ms)                                                                                                                      
+      × should handle errors during updates (2 ms)                                                                                                           
+      × should handle non-existent post during update (2 ms)                                                                                                 
+      × should handle successful update (2 ms)                                                                                                               
+
+  ● Post controller › update › should retrieve the post                                                                                                      
+                                                                                                                                                             
+    TypeError: Cannot stub non-existent property updatePost
+
+      102 |             };
+      103 |
+    > 104 |             updatePostStub = sinon.stub(PostModel, 'updatePost').yields(null, expectedResult);
+          |                                    ^
+      105 |
+      106 |             // Act
+      107 |             PostController.update(req, res);
+
+      at Function.stub (node_modules/sinon/lib/sinon/stub.js:78:15)
+      at Sandbox.stub (node_modules/sinon/lib/sinon/sandbox.js:388:37)
+      at Object.<anonymous> (tests/post.test.js:104:36)
+
+  ● Post controller › update › should retrieve the post
+
+    TypeError: Cannot read properties of undefined (reading 'restore')
+
+      89 |         afterEach(() => {
+      90 |             // executed after the test case
+    > 91 |             updatePostStub.restore();
+         |                            ^
+      92 |         });
+      93 |
+      94 |         // Test for retrieving the post to edit
+
+      at Object.<anonymous> (tests/post.test.js:91:28)
+
+  ● Post controller › update › should handle errors during updates
+
+    TypeError: Cannot stub non-existent property updatePost
+
+      117 |         it('should handle errors during updates', () => {
+      118 |             const error = new Error('Update failed');
+    > 119 |             updatePostStub = sinon.stub(PostModel, 'updatePost').yields(error, null);
+          |                                    ^
+      120 |
+      121 |             // Mocking the request object
+      122 |             const req = {
+
+      at Function.stub (node_modules/sinon/lib/sinon/stub.js:78:15)
+      at Sandbox.stub (node_modules/sinon/lib/sinon/sandbox.js:388:37)
+      at Object.<anonymous> (tests/post.test.js:119:36)
+
+  ● Post controller › update › should handle errors during updates
+
+    TypeError: Cannot read properties of undefined (reading 'restore')
+
+      89 |         afterEach(() => {
+      90 |             // executed after the test case
+    > 91 |             updatePostStub.restore();
+         |                            ^
+      92 |         });
+      93 |
+      94 |         // Test for retrieving the post to edit
+
+      at Object.<anonymous> (tests/post.test.js:91:28)
+
+  ● Post controller › update › should handle non-existent post during update
+
+    TypeError: Cannot stub non-existent property updatePost
+
+      139 |         it('should handle non-existent post during update', () => {
+      140 |             const expectedResult = null; // Simulating a non-existent post
+    > 141 |             updatePostStub = sinon.stub(PostModel, 'updatePost').yields(null, expectedResult);
+          |                                    ^
+      142 |
+      143 |             // Mocking the request object
+      144 |             const req = {
+
+      at Function.stub (node_modules/sinon/lib/sinon/stub.js:78:15)
+      at Sandbox.stub (node_modules/sinon/lib/sinon/sandbox.js:388:37)
+      at Object.<anonymous> (tests/post.test.js:141:36)
+
+  ● Post controller › update › should handle non-existent post during update
+
+    TypeError: Cannot read properties of undefined (reading 'restore')
+
+      89 |         afterEach(() => {
+      90 |             // executed after the test case
+    > 91 |             updatePostStub.restore();
+         |                            ^
+      92 |         });
+      93 |
+      94 |         // Test for retrieving the post to edit
+
+      at Object.<anonymous> (tests/post.test.js:91:28)
+
+  ● Post controller › update › should handle successful update
+
+    TypeError: Cannot stub non-existent property updatePost
+
+      169 |             };
+      170 |
+    > 171 |             updatePostStub = sinon.stub(PostModel, 'updatePost').yields(null, expectedResult);
+          |                                    ^
+      172 |
+      173 |             // Mocking the request object
+      174 |             const req = {
+
+      at Function.stub (node_modules/sinon/lib/sinon/stub.js:78:15)
+      at Sandbox.stub (node_modules/sinon/lib/sinon/sandbox.js:388:37)
+      at Object.<anonymous> (tests/post.test.js:171:36)
+
+  ● Post controller › update › should handle successful update
+
+    TypeError: Cannot read properties of undefined (reading 'restore')
+
+      89 |         afterEach(() => {
+      90 |             // executed after the test case
+    > 91 |             updatePostStub.restore();
+         |                            ^
+      92 |         });
+      93 |
+      94 |         // Test for retrieving the post to edit
+
+      at Object.<anonymous> (tests/post.test.js:91:28)
+
+Test Suites: 1 failed, 1 total
+Tests:       4 failed, 2 passed, 6 total
+Snapshots:   0 total
+Time:        4.621 s
+Ran all test suites.
