@@ -181,3 +181,28 @@ Tests:       4 failed, 2 passed, 6 total
 Snapshots:   0 total
 Time:        4.621 s
 Ran all test suites.
+
+===================================================================
+PS C:\Users\janam\OneDrive\DLSU\Year 3 Term 2\STSWENG\HW\01_TDD\node-unit-mvc> npm run test
+
+> unit-mvc@1.0.0 test
+> jest --color
+
+ PASS  tests/post.test.js
+  Post controller
+    create
+      √ should return the created post object (4 ms)
+      √ should return status 500 on server error (1 ms)
+    update
+      √ should retrieve the post (1 ms)
+      √ should handle successful update (2 ms)
+    findPost
+      √ should return post once found (2 ms)
+      √ should handle post not found (2 ms)
+      √ should return status 500 on server error (3 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       7 passed, 7 total
+Snapshots:   0 total
+Time:        1.106 s, estimated 2 s
+Ran all test suites.
