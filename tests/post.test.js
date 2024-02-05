@@ -76,7 +76,7 @@ describe('Post controller', () => {
     });
 
     describe('update', () => {
-        var createPostStub;
+        var updatePostStub;
 
         beforeEach(() => {
             // before every test case setup first
@@ -88,9 +88,10 @@ describe('Post controller', () => {
 
         afterEach(() => {
             // executed after the test case
-            createPostStub.restore();
+            updatePostStub.restore();
         });
 
+        // Test for retrieving the post to edit
         it('should retrieve the post', () =>{
             expectedResult = {
                 _id: '507asdghajsdhjgasd',
@@ -100,17 +101,96 @@ describe('Post controller', () => {
                 date: Date.now()
             };
 
-            createPostStub = sinon.stub(PostModel, 'createPost').yields(null, expectedResult);
+            updatePostStub = sinon.stub(PostModel, 'updatePost').yields(null, expectedResult);
 
             // Act
-            PostController.create(req, res);
+            PostController.update(req, res);
 
             // Assert
-            sinon.assert.calledWith(PostModel.createPost, req.body);
+            sinon.assert.calledWith(updatePostStub, req.body);
             sinon.assert.calledWith(res.json, sinon.match({ title: req.body.title }));
             sinon.assert.calledWith(res.json, sinon.match({ content: req.body.content }));
             sinon.assert.calledWith(res.json, sinon.match({ author: req.body.author }));
         })
+
+        // Test for handling errors
+        it('should handle errors during updates', () => {
+            const error = new Error('Update failed');
+            updatePostStub = sinon.stub(PostModel, 'updatePost').yields(error, null);
+
+            // Mocking the request object
+            const req = {
+                body: {
+                    title: 'My updated test post',
+                    content: 'Updated content',
+                    author: 'stswenguser'
+                }
+            };
+
+            // Act
+            PostController.update(req, res);
+
+            // Assert
+            sinon.assert.calledWith(updatePostStub, req.body);
+            sinon.assert.calledWith(res.status, 500); // Assuming you set a 500 status for errors
+            sinon.assert.calledWith(res.json, sinon.match({ error: 'Update failed' }));
+        });
+
+        it('should handle non-existent post during update', () => {
+            const expectedResult = null; // Simulating a non-existent post
+            updatePostStub = sinon.stub(PostModel, 'updatePost').yields(null, expectedResult);
+
+            // Mocking the request object
+            const req = {
+                body: {
+                    title: 'My updated test post',
+                    content: 'Updated content',
+                    author: 'stswenguser'
+                }
+            };
+
+            // Act
+            PostController.update(req, res);
+
+            // Assert
+            sinon.assert.calledWith(updatePostStub, req.body);
+            sinon.assert.calledWith(res.status, 404); // Assuming you set a 404 status for not found
+            sinon.assert.calledWith(res.json, sinon.match({ error: 'Post not found' }));
+        });
+
+
+        it('should handle successful update', () => {
+            const expectedResult = {
+                _id: '507asdghajsdhjgasd',
+                title: 'My updated test post',
+                content: 'Updated content',
+                author: 'stswenguser',
+                date: Date.now()
+            };
+
+            updatePostStub = sinon.stub(PostModel, 'updatePost').yields(null, expectedResult);
+
+            // Mocking the request object
+            const req = {
+                body: {
+                    title: 'My updated test post',
+                    content: 'Updated content',
+                    author: 'stswenguser'
+                }
+            };
+
+            // Act
+            PostController.update(req, res);
+
+            // Assert
+            sinon.assert.calledWith(updatePostStub, req.body);
+            sinon.assert.calledWith(res.json, sinon.match({ title: req.body.title }));
+            sinon.assert.calledWith(res.json, sinon.match({ content: req.body.content }));
+            sinon.assert.calledWith(res.json, sinon.match({ author: req.body.author }));
+        });
+
+
+        
     });
 
     describe('findPost', () => {
